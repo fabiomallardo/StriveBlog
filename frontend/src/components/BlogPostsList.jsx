@@ -1,29 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Card, Button, Form, Row, Col, Alert } from "react-bootstrap";
-import { useLocation } from "react-router-dom"; // ⬅️ Importa hook per triggerare il refetch
 
 const BlogPostsList = () => {
   const [posts, setPosts] = useState([]);
   const [newComments, setNewComments] = useState({});
-  const location = useLocation(); // ⬅️ Aggiorna al cambio route
 
   const userEmail = localStorage.getItem("userEmail");
   const userNome = localStorage.getItem("userNome");
   const userCognome = localStorage.getItem("userCognome");
 
-  const fullName =
-    userNome && userCognome ? `${userNome} ${userCognome}` : "Anonimo";
+  const fullName = userNome && userCognome ? `${userNome} ${userCognome}` : "Anonimo";
 
-    useEffect(() => {
-      fetch(`${process.env.REACT_APP_API_URL}/blogPosts`)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("📦 Risposta API post:", data); // <-- aggiungi questo log
-          setPosts(Array.isArray(data.posts) ? data.posts : []);
-        })
-        .catch((err) => console.error("❌ Errore nel fetch dei post:", err));
-    }, []);
-    
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/blogPosts`)
+      .then((res) => res.json())
+      .then((data) => {
+        setPosts(Array.isArray(data.posts) ? data.posts : []);
+      })
+      .catch((err) => console.error("❌ Errore nel fetch dei post:", err));
+  }, []);
 
   const handleAddComment = async (e, postId) => {
     e.preventDefault();
@@ -34,21 +29,18 @@ const BlogPostsList = () => {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/blogPosts/${postId}/comments`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          author: fullName,
-          email: userEmail,
-          text,
-        }),
+        body: JSON.stringify({ author: fullName, email: userEmail, text }),
       });
 
       if (!res.ok) throw new Error("Errore invio commento");
-
       const data = await res.json();
+
       setPosts((prev) =>
         prev.map((post) =>
           post._id === postId ? { ...post, comments: data.comments } : post
         )
       );
+
       setNewComments({ ...newComments, [postId]: "" });
     } catch (err) {
       console.error("❌ Errore commento:", err);
@@ -67,8 +59,8 @@ const BlogPostsList = () => {
       );
 
       if (!res.ok) throw new Error("Errore eliminazione");
-
       const data = await res.json();
+
       setPosts((prev) =>
         prev.map((post) =>
           post._id === postId ? { ...post, comments: data.comments } : post
@@ -79,39 +71,32 @@ const BlogPostsList = () => {
     }
   };
 
-  if (!posts.length) {
-    return <p className="text-center mt-5">Nessun post pubblicato ancora.</p>;
-  }
-
   return (
-    <Row className="g-4">
+    <Row className="g-3">
       {posts.map((post) => (
-        <Col key={post._id} xs={12} sm={6} md={4} lg={3} xl={2}>        
-          <Card className="h-100 shadow-sm">
+        <Col key={post._id} xs={12} sm={6} md={4} lg={3}>
+          <Card className="h-100 shadow-sm" style={{ minHeight: "480px" }}>
             <Card.Img
               variant="top"
               src={post.cover}
               alt={post.title}
-              style={{ height: 200, objectFit: "cover" }}
+              style={{ height: "150px", objectFit: "cover" }}
             />
-            <Card.Body className="d-flex flex-column">
-              <Card.Title>{post.title}</Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">
+            <Card.Body className="d-flex flex-column p-3">
+              <Card.Title className="fs-5">{post.title}</Card.Title>
+              <Card.Subtitle className="mb-2 text-muted small">
                 {post.category} • {post.readTime?.value} {post.readTime?.unit}
               </Card.Subtitle>
-              <Card.Text className="flex-grow-1">
+              <Card.Text className="flex-grow-1 small">
                 {post.content.slice(0, 100)}...
               </Card.Text>
 
               <hr />
-              <h6>Commenti</h6>
+              <h6 className="fw-semibold">Commenti</h6>
               {Array.isArray(post.comments) && post.comments.length > 0 ? (
                 <ul className="list-unstyled">
                   {post.comments.map((comment) => (
-                    <li
-                      key={comment._id}
-                      className="d-flex justify-content-between align-items-center mb-2"
-                    >
+                    <li key={comment._id} className="d-flex justify-content-between align-items-center mb-2 small">
                       <div>
                         <strong>{comment.author}</strong>: {comment.text}
                       </div>
@@ -119,9 +104,7 @@ const BlogPostsList = () => {
                         <Button
                           variant="outline-danger"
                           size="sm"
-                          onClick={() =>
-                            handleDeleteComment(post._id, comment._id)
-                          }
+                          onClick={() => handleDeleteComment(post._id, comment._id)}
                         >
                           🗑
                         </Button>
@@ -130,7 +113,7 @@ const BlogPostsList = () => {
                   ))}
                 </ul>
               ) : (
-                <Alert variant="light" className="py-1">
+                <Alert variant="light" className="py-1 small mb-2">
                   Nessun commento ancora.
                 </Alert>
               )}
@@ -138,7 +121,7 @@ const BlogPostsList = () => {
               {userEmail && (
                 <Form
                   onSubmit={(e) => handleAddComment(e, post._id)}
-                  className="d-flex gap-2 mt-3"
+                  className="d-flex gap-2 mt-2"
                 >
                   <Form.Control
                     type="text"
@@ -150,14 +133,15 @@ const BlogPostsList = () => {
                         [post._id]: e.target.value,
                       })
                     }
+                    className="form-control form-control-sm"
                   />
-                  <Button type="submit" variant="primary">
+                  <Button type="submit" variant="primary" size="sm">
                     Invia
                   </Button>
                 </Form>
               )}
             </Card.Body>
-            <Card.Footer className="text-muted small text-end">
+            <Card.Footer className="text-muted text-end small px-3">
               {post.author}
             </Card.Footer>
           </Card>
