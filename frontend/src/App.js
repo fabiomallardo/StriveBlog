@@ -27,10 +27,10 @@ function App() {
 
   return (
     <Router>
-      <div className="app-wrapper">
+      <div className="app-wrapper d-flex flex-column min-vh-100">
         <Navbar />
 
-        <main>
+        <main className="flex-grow-1">
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route
