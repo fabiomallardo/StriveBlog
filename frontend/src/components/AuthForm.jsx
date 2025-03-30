@@ -24,11 +24,12 @@ const AuthForm = ({ mode = "login", onSuccess }) => {
       ? { email: form.email, password: form.password }
       : form; // Aggiungi form completo (con gender)
 
-    const response = await fetch(`http://localhost:3001${endpoint}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      
 
     if (response.ok) {
       const data = await response.json();
