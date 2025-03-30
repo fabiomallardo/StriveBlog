@@ -1,0 +1,8 @@
+.navbar .nav-link:hover {
+    color: #a9b4bd !important; /* Colore bianco quando il link è in hover */
+  }
+  
+  .navbar .nav-link.active {
+    color: #9ba4ad !important; /* Colore bianco quando il link è attivo */
+  }
+  
