@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Card, Button, Form, Row, Col, Alert } from "react-bootstrap";
+import { useLocation } from "react-router-dom"; // ⬅️ Importa hook per triggerare il refetch
 
 const BlogPostsList = () => {
   const [posts, setPosts] = useState([]);
   const [newComments, setNewComments] = useState({});
+  const location = useLocation(); // ⬅️ Aggiorna al cambio route
 
   const userEmail = localStorage.getItem("userEmail");
   const userNome = localStorage.getItem("userNome");
@@ -16,14 +18,13 @@ const BlogPostsList = () => {
     fetch(`${process.env.REACT_APP_API_URL}/blogPosts`)
       .then((res) => res.json())
       .then((data) => {
-        setPosts(Array.isArray(data.posts) ? data.posts : []);
+        setPosts(Array.isArray(data.posts) ? data.posts : data); // supporta entrambi i formati
       })
       .catch((err) => console.error("❌ Errore nel fetch dei post:", err));
-  }, []);
+  }, [location]); // ⬅️ Triggera ogni volta che cambia pagina (es: dopo submit)
 
   const handleAddComment = async (e, postId) => {
     e.preventDefault();
-
     const text = newComments[postId];
     if (!text?.trim()) return;
 
@@ -75,6 +76,10 @@ const BlogPostsList = () => {
       console.error("❌ Errore eliminazione commento:", err);
     }
   };
+
+  if (!posts.length) {
+    return <p className="text-center mt-5">Nessun post pubblicato ancora.</p>;
+  }
 
   return (
     <Row className="g-4">
