@@ -57,7 +57,7 @@ const NewPostForm = () => {
         setForm({ title: "", category: "", cover: "", readTime: 1, content: "" });
 
         // 🔁 Reindirizza alla homepage per vedere il nuovo post
-        setTimeout(() => navigate("/"), 1000);
+        setTimeout(() => window.location.href = "/", 1000);
       } else {
         throw new Error("Errore nella creazione del post");
       }
