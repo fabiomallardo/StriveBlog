@@ -14,14 +14,16 @@ const BlogPostsList = () => {
   const fullName =
     userNome && userCognome ? `${userNome} ${userCognome}` : "Anonimo";
 
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/blogPosts`)
-      .then((res) => res.json())
-      .then((data) => {
-        setPosts(Array.isArray(data.posts) ? data.posts : data); // supporta entrambi i formati
-      })
-      .catch((err) => console.error("❌ Errore nel fetch dei post:", err));
-  }, [location]); // ⬅️ Triggera ogni volta che cambia pagina (es: dopo submit)
+    useEffect(() => {
+      fetch(`${process.env.REACT_APP_API_URL}/blogPosts`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("📦 Risposta API post:", data); // <-- aggiungi questo log
+          setPosts(Array.isArray(data.posts) ? data.posts : []);
+        })
+        .catch((err) => console.error("❌ Errore nel fetch dei post:", err));
+    }, []);
+    
 
   const handleAddComment = async (e, postId) => {
     e.preventDefault();
