@@ -9,7 +9,8 @@ const BlogPostsList = () => {
   const userNome = localStorage.getItem("userNome");
   const userCognome = localStorage.getItem("userCognome");
 
-  const fullName = userNome && userCognome ? `${userNome} ${userCognome}` : "Anonimo";
+  const fullName =
+    userNome && userCognome ? `${userNome} ${userCognome}` : "Anonimo";
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/blogPosts`)
@@ -29,18 +30,21 @@ const BlogPostsList = () => {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/blogPosts/${postId}/comments`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ author: fullName, email: userEmail, text }),
+        body: JSON.stringify({
+          author: fullName,
+          email: userEmail,
+          text,
+        }),
       });
 
       if (!res.ok) throw new Error("Errore invio commento");
-      const data = await res.json();
 
+      const data = await res.json();
       setPosts((prev) =>
         prev.map((post) =>
           post._id === postId ? { ...post, comments: data.comments } : post
         )
       );
-
       setNewComments({ ...newComments, [postId]: "" });
     } catch (err) {
       console.error("❌ Errore commento:", err);
@@ -59,8 +63,8 @@ const BlogPostsList = () => {
       );
 
       if (!res.ok) throw new Error("Errore eliminazione");
-      const data = await res.json();
 
+      const data = await res.json();
       setPosts((prev) =>
         prev.map((post) =>
           post._id === postId ? { ...post, comments: data.comments } : post
@@ -72,31 +76,34 @@ const BlogPostsList = () => {
   };
 
   return (
-    <Row className="g-3">
+    <Row className="row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
       {posts.map((post) => (
-        <Col key={post._id} xs={12} sm={6} md={4} lg={3}>
-          <Card className="h-100 shadow-sm" style={{ minHeight: "480px" }}>
+        <Col key={post._id}>
+          <Card className="h-100 shadow-sm">
             <Card.Img
               variant="top"
               src={post.cover}
               alt={post.title}
-              style={{ height: "150px", objectFit: "cover" }}
+              style={{ height: "140px", objectFit: "cover" }}
             />
-            <Card.Body className="d-flex flex-column p-3">
-              <Card.Title className="fs-5">{post.title}</Card.Title>
-              <Card.Subtitle className="mb-2 text-muted small">
+            <Card.Body className="d-flex flex-column p-2">
+              <Card.Title className="fs-6 fw-bold">{post.title}</Card.Title>
+              <Card.Subtitle className="mb-2 text-muted">
                 {post.category} • {post.readTime?.value} {post.readTime?.unit}
               </Card.Subtitle>
               <Card.Text className="flex-grow-1 small">
                 {post.content.slice(0, 100)}...
               </Card.Text>
 
-              <hr />
-              <h6 className="fw-semibold">Commenti</h6>
+              <hr className="my-2" />
+              <h6 className="fs-6">Commenti</h6>
               {Array.isArray(post.comments) && post.comments.length > 0 ? (
                 <ul className="list-unstyled">
                   {post.comments.map((comment) => (
-                    <li key={comment._id} className="d-flex justify-content-between align-items-center mb-2 small">
+                    <li
+                      key={comment._id}
+                      className="d-flex justify-content-between align-items-center mb-1 small"
+                    >
                       <div>
                         <strong>{comment.author}</strong>: {comment.text}
                       </div>
@@ -104,7 +111,9 @@ const BlogPostsList = () => {
                         <Button
                           variant="outline-danger"
                           size="sm"
-                          onClick={() => handleDeleteComment(post._id, comment._id)}
+                          onClick={() =>
+                            handleDeleteComment(post._id, comment._id)
+                          }
                         >
                           🗑
                         </Button>
@@ -113,7 +122,7 @@ const BlogPostsList = () => {
                   ))}
                 </ul>
               ) : (
-                <Alert variant="light" className="py-1 small mb-2">
+                <Alert variant="light" className="py-1">
                   Nessun commento ancora.
                 </Alert>
               )}
@@ -133,7 +142,7 @@ const BlogPostsList = () => {
                         [post._id]: e.target.value,
                       })
                     }
-                    className="form-control form-control-sm"
+                    size="sm"
                   />
                   <Button type="submit" variant="primary" size="sm">
                     Invia
@@ -141,7 +150,7 @@ const BlogPostsList = () => {
                 </Form>
               )}
             </Card.Body>
-            <Card.Footer className="text-muted text-end small px-3">
+            <Card.Footer className="text-muted small text-end">
               {post.author}
             </Card.Footer>
           </Card>
