@@ -20,11 +20,12 @@ const AuthForm = ({ mode = "login", onSuccess }) => {
     e.preventDefault();
 
     const endpoint = isLogin ? "/auth/login" : "/auth/register";
-    const payload = isLogin
-      ? { email: form.email, password: form.password }
-      : form; // Aggiungi form completo (con gender)
+const payload = isLogin
+  ? { email: form.email, password: form.password }
+  : form;
 
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
+const response = await fetch(`${process.env.REACT_APP_API_URL}${endpoint}`, {
+
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
