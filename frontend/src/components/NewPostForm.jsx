@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Spinner } from "react-bootstrap"; // Per lo spinner di caricamento
+import React, { useState } from "react";
+import { Spinner } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const NewPostForm = () => {
   const [form, setForm] = useState({
@@ -11,37 +12,10 @@ const NewPostForm = () => {
   });
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(""); // Gestione degli errori
-  const [success, setSuccess] = useState(""); // Gestione del successo
-  const [posts, setPosts] = useState([]); // Elenco dei post creati
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-  // Caricamento dei post esistenti all'avvio del componente
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        try {
-          const response = await fetch(`${process.env.REACT_APP_API_URL}/blogPosts`, {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-
-          if (response.ok) {
-            const data = await response.json();
-            setPosts(data.blogPosts || []); // Salviamo i post esistenti
-          } else {
-            throw new Error("Errore nel recupero dei post.");
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    };
-
-    fetchPosts();
-  }, []); // Carichiamo i post quando la pagina viene caricata
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -58,8 +32,8 @@ const NewPostForm = () => {
     }
 
     setLoading(true);
-    setError(""); // Resetta eventuali errori
-    setSuccess(""); // Resetta eventuali successi
+    setError("");
+    setSuccess("");
 
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/blogPosts`, {
@@ -78,10 +52,12 @@ const NewPostForm = () => {
       });
 
       if (response.ok) {
-        const newPost = await response.json(); // Ottieni il nuovo post creato dal server
-        setPosts((prevPosts) => [newPost, ...prevPosts]); // Aggiungi il nuovo post alla lista
+        await response.json();
         setSuccess("Post creato con successo!");
-        setForm({ title: "", category: "", cover: "", readTime: 1, content: "" }); // Reset del modulo
+        setForm({ title: "", category: "", cover: "", readTime: 1, content: "" });
+
+        // 🔁 Reindirizza alla homepage per vedere il nuovo post
+        setTimeout(() => navigate("/"), 1000);
       } else {
         throw new Error("Errore nella creazione del post");
       }
