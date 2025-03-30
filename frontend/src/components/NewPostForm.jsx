@@ -21,7 +21,7 @@ const NewPostForm = () => {
       const token = localStorage.getItem("token");
       if (token) {
         try {
-          const response = await fetch("http://localhost:3001/blogPosts", {
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/blogPosts`, {
             method: "GET",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -62,7 +62,7 @@ const NewPostForm = () => {
     setSuccess(""); // Resetta eventuali successi
 
     try {
-      const response = await fetch("http://localhost:3001/blogPosts", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/blogPosts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

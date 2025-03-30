@@ -29,7 +29,7 @@ const AuthorsList = () => {
     // Se l'utente è admin, recupera gli autori
     const fetchAuthors = async () => {
       try {
-        const response = await fetch("http://localhost:3001/authors?page=1&limit=10", {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/authors?page=1&limit=10`, {
           method: "GET",
           headers: {
             Authorization: ` Bearer ${token}`, 

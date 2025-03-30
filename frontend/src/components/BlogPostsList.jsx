@@ -13,7 +13,7 @@ const BlogPostsList = () => {
     userNome && userCognome ? `${userNome} ${userCognome}` : "Anonimo";
 
   useEffect(() => {
-    fetch("http://localhost:3001/blogPosts")
+    fetch(`${process.env.REACT_APP_API_URL}/blogPosts`)
       .then((res) => res.json())
       .then((data) => {
         setPosts(Array.isArray(data.posts) ? data.posts : []);
@@ -28,7 +28,7 @@ const BlogPostsList = () => {
     if (!text?.trim()) return;
 
     try {
-      const res = await fetch(`http://localhost:3001/blogPosts/${postId}/comments`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/blogPosts/${postId}/comments`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -55,7 +55,7 @@ const BlogPostsList = () => {
   const handleDeleteComment = async (postId, commentId) => {
     try {
       const res = await fetch(
-        `http://localhost:3001/blogPosts/${postId}/comments/${commentId}`,
+        `${process.env.REACT_APP_API_URL}/blogPosts/${postId}/comments/${commentId}`,
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },

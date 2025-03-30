@@ -25,12 +25,14 @@ const payload = isLogin
   : form;
 
 const response = await fetch(`${process.env.REACT_APP_API_URL}${endpoint}`, {
+  
 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      
+      console.log("🔍 API URL:", process.env.REACT_APP_API_URL);
+    
 
     if (response.ok) {
       const data = await response.json();
@@ -52,7 +54,7 @@ const response = await fetch(`${process.env.REACT_APP_API_URL}${endpoint}`, {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:3001/auth/google";
+    window.location.href = `${process.env.REACT_APP_API_URL}/auth/google`;
   };
 
   return (
