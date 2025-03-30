@@ -31,7 +31,7 @@ const EditProfileModal = ({ show, handleClose, user, onSave }) => {
     });
 
     try {
-      const res = await fetch(`http://localhost:3001/authors/${userId}`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/authors/${userId}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,

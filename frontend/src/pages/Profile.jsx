@@ -29,7 +29,7 @@ const Profile = () => {
   // dentro Profile
   const fetchUser = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/authors/${userId}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/authors/${userId}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -66,7 +66,7 @@ fetchUser();
     if (!isAdmin) return;
 
     const fetchAuthors = async () => {
-      const response = await fetch("http://localhost:3001/authors", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/authors`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -84,7 +84,7 @@ fetchUser();
       try {
         console.log("Iniziando a recuperare i post...");
   
-        const response = await fetch("http://localhost:3001/blogPosts", {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/blogPosts`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -115,7 +115,7 @@ fetchUser();
 
   // Funzione per eliminare un autore
   const handleDeleteAuthor = async (id) => {
-    const response = await fetch(`http://localhost:3001/authors/${id}`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/authors/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -127,7 +127,7 @@ fetchUser();
 
   // Funzione per eliminare un post del blog
   const handleDeletePost = async (id) => {
-    const response = await fetch(`http://localhost:3001/blogPosts/${id}`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/blogPosts/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });

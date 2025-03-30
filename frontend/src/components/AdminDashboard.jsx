@@ -22,7 +22,7 @@ const AdminDashboard = () => {
     const fetchAuthors = async () => {
       const token = localStorage.getItem("token");
       try {
-        const response = await fetch("http://localhost:3001/authors", {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/authors`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -47,7 +47,7 @@ const AdminDashboard = () => {
     const fetchBlogPosts = async () => {
       const token = localStorage.getItem("token");
       try {
-        const response = await fetch("http://localhost:3001/blogPosts", {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/blogPosts`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -70,7 +70,7 @@ const AdminDashboard = () => {
   // Funzione per eliminare un autore
   const handleDeleteAuthor = async (id) => {
     const token = localStorage.getItem("token");
-    const response = await fetch(`http://localhost:3001/authors/${id}`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/authors/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -88,7 +88,7 @@ const AdminDashboard = () => {
     console.log(`Eliminazione post con ID: ${id}`); // Log di debug
 
     try {
-      const response = await fetch(`http://localhost:3001/blogPosts/${id}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/blogPosts/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
