@@ -1,15 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Navbar from "./components/Navbar.jsx"; 
+import Navbar from "./components/Navbar.jsx";
 import Homepage from "./pages/Homepage.jsx";
 import AuthorsList from "./components/AuthorsList.jsx";
 import NewPostForm from "./components/NewPostForm.jsx";
-import Profile from "./pages/Profile.jsx";  
+import Profile from "./pages/Profile.jsx";
 import Footer from "./components/Footer.jsx";
-import 'font-awesome/css/font-awesome.min.css';
 import AdminDashboard from "./components/AdminDashboard.jsx";
+import PostDetail from "./components/PostDetail.jsx";
 import { jwtDecode } from "jwt-decode";
-import PostDetail from "./components/PostDetail.jsx";  // Importa il nuovo componente PostDetail
+import "font-awesome/css/font-awesome.min.css";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -29,6 +29,7 @@ function App() {
     <Router>
       <div className="app-wrapper">
         <Navbar />
+
         <main>
           <Routes>
             <Route path="/" element={<Homepage />} />
@@ -51,6 +52,7 @@ function App() {
             <Route path="/post/:id" element={<PostDetail />} />
           </Routes>
         </main>
+
         <Footer />
       </div>
     </Router>
