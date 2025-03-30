@@ -84,7 +84,7 @@ const BlogPostsList = () => {
   return (
     <Row className="g-4">
       {posts.map((post) => (
-        <Col key={post._id} xs={12} md={6} lg={4}>
+        <Col key={post._id} xs={12} sm={6} md={4} lg={3} xl={2}>        
           <Card className="h-100 shadow-sm">
             <Card.Img
               variant="top"
