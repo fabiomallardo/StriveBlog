@@ -27,33 +27,32 @@ function App() {
 
   return (
     <Router>
-      <Navbar />
       <div className="app-wrapper">
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route
-            path="/authors"
-            element={isAuthenticated ? <AuthorsList /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/new-post"
-            element={isAuthenticated ? <NewPostForm /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/profile"
-            element={isAuthenticated ? <Profile /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/admin"
-            element={isAuthenticated && isAdmin ? <AdminDashboard /> : <Navigate to="/" />}
-          />
-          
-          {/* Aggiungi la rotta per il post completo */}
-          <Route path="/post/:id" element={<PostDetail />} />  {/* Nuova rotta per il post completo */}
-          
-        </Routes>
+        <Navbar />
+        <main>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route
+              path="/authors"
+              element={isAuthenticated ? <AuthorsList /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/new-post"
+              element={isAuthenticated ? <NewPostForm /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/profile"
+              element={isAuthenticated ? <Profile /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/admin"
+              element={isAuthenticated && isAdmin ? <AdminDashboard /> : <Navigate to="/" />}
+            />
+            <Route path="/post/:id" element={<PostDetail />} />
+          </Routes>
+        </main>
+        <Footer />
       </div>
-      <Footer />
     </Router>
   );
 }
