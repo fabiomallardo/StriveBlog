@@ -42,7 +42,7 @@ const NavbarComponent = () => {
             {isAuthenticated && <Nav.Link as={Link} to="/authors" className="text-white">Autori</Nav.Link>}
 
             {/* Link Nuovo Post visibile solo se l'utente è autenticato */}
-            {isAuthenticated && <Nav.Link as={Link} to="/new-post" className="text-white">Nuovo Post</Nav.Link>}
+            {isAdmin && isAuthenticated && <Nav.Link as={Link} to="/new-post" className="text-white">Nuovo Post</Nav.Link>}
           </Nav>
 
           {/* Dropdown per il profilo e logout visibile solo se l'utente è autenticato */}

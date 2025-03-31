@@ -17,7 +17,7 @@ const AuthorsList = () => {
       return;
     }
 
-  /*   // Decodifica il token per verificare il ruolo
+    // Decodifica il token per verificare il ruolo
     const decodedToken = jwtDecode(token);
     // Qui puoi accedere a `decodedToken.role` per il controllo del ruolo
     if (decodedToken.role !== "admin") {
@@ -25,7 +25,7 @@ const AuthorsList = () => {
       setLoading(false);
       return;
     }
- */
+
     // Se l'utente è admin, recupera gli autori
     const fetchAuthors = async () => {
       try {
