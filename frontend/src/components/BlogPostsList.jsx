@@ -67,8 +67,8 @@ const BlogPostsList = () => {
   };
 
   return (
-    <Container className="py-4">
-      <Row className="g-4">
+    <Container className="py-4 mb-5">
+      <Row className="g-4 mb-5">
         {posts.map((post) => (
           <Col key={post._id} xs={12} sm={6} md={4} lg={3}>
             <Card className="h-100 shadow-sm d-flex flex-column">

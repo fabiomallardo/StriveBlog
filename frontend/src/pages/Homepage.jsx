@@ -37,7 +37,9 @@ const Homepage = () => {
   };
 
   return (
-    <div style={{
+    <div
+      className="vh-100 vw-100"
+      style={{
         margin: 0,
         padding: 0,
         backgroundImage: !isAuthenticated ? `url(${sfondo})` : "none",
