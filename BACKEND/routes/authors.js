@@ -7,6 +7,7 @@ import isAuth from "../middlewares/isAuth.js";
 import isAdmin from "../middlewares/isAdmin.js";
 /* import uploader from "../middlewares/uploader.js"; */
 import sendWelcomeEmail from "../utils/sendEmail.js";
+import { uploader } from "../utils/cloudinary.js";
 
 const router = express.Router();
 
