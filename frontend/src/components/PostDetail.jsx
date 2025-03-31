@@ -8,6 +8,9 @@ const PostDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const userEmail = localStorage.getItem("userEmail");
+  const userNome = localStorage.getItem("userNome");
+  const userCognome = localStorage.getItem("userCognome");
   const fullName = userNome && userCognome ? `${userNome} ${userCognome}` : "Anonimo";
 
 
