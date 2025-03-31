@@ -9,14 +9,12 @@ const Homepage = () => {
   const [userName, setUserName] = useState(localStorage.getItem("userNome") || "");
   const [userGender, setUserGender] = useState(localStorage.getItem("userGender") || "");
 
-  // Quando il componente viene caricato, aggiorniamo lo stato in base al token di autenticazione
   useEffect(() => {
     setIsAuthenticated(!!localStorage.getItem("token"));
     setUserName(localStorage.getItem("userNome") || "");
     setUserGender(localStorage.getItem("userGender") || "");
   }, []);
 
-  // Funzione di logout
   const handleLogout = () => {
     localStorage.clear();
     setIsAuthenticated(false);
@@ -26,7 +24,6 @@ const Homepage = () => {
     window.location.reload();
   };
 
-  // Funzione di login success
   const handleLoginSuccess = () => {
     setIsAuthenticated(true);
     setUserName(localStorage.getItem("userNome") || "");
@@ -35,16 +32,13 @@ const Homepage = () => {
     window.location.reload();
   };
 
-  // Funzione per togglare la visualizzazione del form
   const toggleForm = (formType) => {
     setMode((prev) => (prev === formType ? null : formType));
   };
 
   return (
     <div
-      className={`${
-        !isAuthenticated ? "vh-100 vw-100" : "" // Applica vh-100 e vw-100 solo quando non è autenticato
-      }`} 
+      className="homepage-wrapper"
       style={{
         margin: 0,
         padding: 0,
@@ -52,7 +46,7 @@ const Homepage = () => {
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        overflow: "hidden",
+        minHeight: !isAuthenticated ? "100vh" : "auto", // Altezza 100vh solo quando non loggato
       }}
     >
       {!isAuthenticated ? (
