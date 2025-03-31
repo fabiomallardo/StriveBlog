@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, Button, Form, Row, Col, Alert, Container } from "react-bootstrap";
+import { Link } from "react-router-dom"; // Importa Link
 
 const BlogPostsList = () => {
   const [posts, setPosts] = useState([]);
@@ -136,8 +137,12 @@ const BlogPostsList = () => {
                   </Form>
                 )}
               </Card.Body>
-              <Card.Footer className="text-muted small text-end">
-                {post.author}
+              <Card.Footer className="text-muted small d-flex justify-content-between align-items-center">
+                <span>{post.author}</span>
+                {/* Bottone per leggere l'articolo per intero */}
+                <Button as={Link} to={`/blogPosts/${post._id}`} variant="outline-primary" size="sm">
+                  Leggi Articolo
+                </Button>
               </Card.Footer>
             </Card>
           </Col>
