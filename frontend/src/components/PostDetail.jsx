@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Spinner, Container, Card, Form, Button, Alert } from "react-bootstrap";
 
 const PostDetail = () => {
-  const { id } = useParams();  // Otteniamo l'ID del post dalla URL
+  const { id } = useParams(); // Otteniamo l'ID del post dalla URL
   const [post, setPost] = useState(null);
   const [newComment, setNewComment] = useState(""); // Stato per il nuovo commento
   const [loading, setLoading] = useState(true);
@@ -57,6 +57,29 @@ const PostDetail = () => {
     }
   };
 
+  // Funzione per eliminare un commento
+  const handleDeleteComment = async (commentId) => {
+    try {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/blogPosts/${id}/comments/${commentId}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: userEmail }),
+      });
+
+      if (!res.ok) throw new Error("Errore eliminazione commento");
+
+      const data = await res.json();
+
+      // Aggiorna il post rimuovendo il commento eliminato
+      setPost((prevPost) => ({
+        ...prevPost,
+        comments: prevPost.comments.filter((comment) => comment._id !== commentId),
+      }));
+    } catch (err) {
+      console.error("❌ Errore eliminazione commento:", err);
+    }
+  };
+
   if (loading) {
     return (
       <Container className="py-5 text-center">
@@ -89,9 +112,18 @@ const PostDetail = () => {
           <h6>Commenti</h6>
           {Array.isArray(post.comments) && post.comments.length > 0 ? (
             <ul className="list-unstyled">
-              {post.comments.map((comment, index) => (
-                <li key={index} className="mb-2">
+              {post.comments.map((comment) => (
+                <li key={comment._id} className="mb-2">
                   <strong>{comment.author}</strong>: {comment.text}
+                  {comment.email === userEmail && (
+                    <Button
+                      variant="outline-danger"
+                      size="sm"
+                      onClick={() => handleDeleteComment(comment._id)} // Passa commentId
+                    >
+                      🗑
+                    </Button>
+                  )}
                 </li>
               ))}
             </ul>
