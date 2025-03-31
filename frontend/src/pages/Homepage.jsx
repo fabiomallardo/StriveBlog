@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AuthForm from "../components/AuthForm.jsx";
 import BlogPostsList from "../components/BlogPostsList.jsx";
-import sfondo from "../assets/sfondo-login.jpg"; // Importa l'immagine di sfondo
+import sfondo from "../assets/sfondo-login.jpg";
 
 const Homepage = () => {
   const [mode, setMode] = useState(null);
@@ -38,17 +38,15 @@ const Homepage = () => {
 
   return (
     <div
+      className={`${!isAuthenticated ? "vh-100 vw-100" : ""}`} // Applicare vh-100 solo se non autenticato
       style={{
         margin: 0,
         padding: 0,
-        backgroundImage: !isAuthenticated ? `url(${sfondo})` : "none", // Applica lo sfondo solo quando non è autenticato
+        backgroundImage: !isAuthenticated ? `url(${sfondo})` : "none", // Applica l'immagine solo se non autenticato
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        minHeight: !isAuthenticated ? "100vh" : "auto", // Altezza 100vh solo quando non loggato
-        display: "flex",
-        flexDirection: "column",
-        height: "100%",
+        overflow: "hidden",
       }}
     >
       {!isAuthenticated ? (
@@ -83,21 +81,13 @@ const Homepage = () => {
           )}
         </div>
       ) : (
-        <div className="divprimo container py-5">
+        <div className="container py-5">
           <h1 className="mb-4">
             🎉 {userGender === "femmina" ? "Benvenuta" : "Benvenuto"} {userName}!
           </h1>
           <BlogPostsList />
         </div>
       )}
-      <footer className="footer bg-dark text-white mt-auto">
-        <div className="container text-center">
-          <p>&copy; 2025 Strive Blog. Tutti i diritti riservati.</p>
-          <div>
-            <button onClick={handleLogout} className="btn btn-light">Logout</button>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };
