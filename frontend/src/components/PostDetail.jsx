@@ -49,6 +49,7 @@ const PostDetail = () => {
       });
 
       if (!res.ok) {
+        const errorData = await res.json();
         console.error("Errore risposta API:", errorData); // Aggiungi questa riga
        throw new Error("Errore invio commento");
       }
