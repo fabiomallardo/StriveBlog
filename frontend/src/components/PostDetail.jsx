@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"; // Per ottenere l'ID del post dalla URL
+import { useParams } from "react-router-dom";
 import { Spinner, Container, Card } from "react-bootstrap";
 
 const PostDetail = () => {
