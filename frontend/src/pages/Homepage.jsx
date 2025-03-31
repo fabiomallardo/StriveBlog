@@ -37,8 +37,7 @@ const Homepage = () => {
   };
 
   return (
-    <div
-      style={{
+    <div style={{
         margin: 0,
         padding: 0,
         backgroundImage: !isAuthenticated ? `url(${sfondo})` : "none",
