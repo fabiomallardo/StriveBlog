@@ -7,7 +7,7 @@ import blogPostsRouter from "./routes/blogPosts.js";
 import passport from "passport";
 import authRoutes from "./routes/auth.js";
 import createAdminRoutes from './routes/createAdmin.js'; // Assicurati che il percorso sia corretto
-import { uploader } from "./cloudinary.js"; // Importa l'uploader da Cloudinary
+import { uploader } from "./utils/cloudinary.js"; // Importa l'uploader da Cloudinary
 
 dotenv.config();
 
