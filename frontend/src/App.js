@@ -10,6 +10,8 @@ import AdminDashboard from "./components/AdminDashboard.jsx";
 import PostDetail from "./components/PostDetail.jsx";
 import { jwtDecode } from "jwt-decode";
 import "font-awesome/css/font-awesome.min.css";
+import { SpeedInsights } from "@vercel/speed-insights/react"
+
 
 // Layout principale con Flexbox per spingere il footer giù
 const App = () => {
@@ -54,6 +56,7 @@ const App = () => {
         </main>
         <Footer />
       </div>
+      <SpeedInsights />
     </Router>
   );
 };
