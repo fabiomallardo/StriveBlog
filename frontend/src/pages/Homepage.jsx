@@ -38,17 +38,19 @@ const Homepage = () => {
 
   return (
     <div
-      className="vh-100 vw-100"
-      style={{
-        margin: 0,
-        padding: 0,
-        backgroundImage: !isAuthenticated ? `url(${sfondo})` : "none",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        overflow: "hidden",
-      }}
-    >
+    className={`${
+      !isAuthenticated ? "vh-100 vw-100" : ""
+    }`} // Applica vh-100 solo quando non è autenticato
+    style={{
+      margin: 0,
+      padding: 0,
+      backgroundImage: !isAuthenticated ? `url(${sfondo})` : "none", // Applica lo sfondo solo quando non è autenticato
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      overflow: "hidden",
+    }}
+  >
       {!isAuthenticated ? (
         <div className="container h-100 d-flex flex-column justify-content-center align-items-start px-4">
           <h1 className="text-white mb-3 fs-2">Benvenuto su Strive Blog</h1>
