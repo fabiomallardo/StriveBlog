@@ -44,7 +44,7 @@ const PostDetail = () => {
     // Aggiungi il controllo dei dati
     const author = userNome && userCognome ? `${userNome} ${userCognome}` : "Anonimo";
     
-    const commentData = { author, text: newComment };
+    const commentData = { author : fullName, text: newComment };
     console.log("Dati che invio:", commentData);
   
     try {
