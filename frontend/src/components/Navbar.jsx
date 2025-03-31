@@ -29,7 +29,7 @@ const NavbarComponent = () => {
   };
 
   return (
-    <Navbar expand="lg" className="bg-dark text-white">
+<Navbar expand="lg" className="bg-dark text-white">
       <Container>
         <Navbar.Brand className="text-white"> Strive-Blog</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
