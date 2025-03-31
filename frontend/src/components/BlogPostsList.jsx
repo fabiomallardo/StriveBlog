@@ -39,43 +39,6 @@ const BlogPostsList = () => {
                 <Card.Text className="flex-grow-1">
                   {post.content.slice(0, 100)}...
                 </Card.Text>
-
-        {/*         <hr />
-                <h6>Commenti</h6>
-                <div className="card-comments">
-                  {Array.isArray(post.comments) && post.comments.length > 0 ? (
-                    <ul className="list-unstyled">
-                      {post.comments.map((comment) => (
-                        <li key={comment._id} className="d-flex justify-content-between align-items-center mb-2">
-                          <div>
-                            <strong>{comment.author}</strong>: {comment.text}
-                          </div>
-                          {comment.email === userEmail && (
-                            <Button variant="outline-danger" size="sm" onClick={() => handleDeleteComment(post._id, comment._id)}>
-                              🗑
-                            </Button>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <Alert variant="light" className="py-1">
-                      Nessun commento ancora.
-                    </Alert>
-                  )}
-                </div>
-
-                <Form onSubmit={(e) => handleAddComment(e, post._id)} className="d-flex gap-2 mt-3">
-                  <Form.Control
-                    type="text"
-                    placeholder="Scrivi un commento..."
-                    value={newComments[post._id] || ""}
-                    onChange={(e) => setNewComments({ ...newComments, [post._id]: e.target.value })}
-                  />
-                  <Button type="submit" variant="primary">
-                    Invia
-                  </Button>
-                </Form> */}
               </Card.Body>
 
               <Card.Footer className="text-muted small d-flex justify-content-between align-items-center">
