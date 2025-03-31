@@ -49,6 +49,7 @@ const Homepage = () => {
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
+        overflow: "hidden",
       }}
     >
       {!isAuthenticated ? (
@@ -85,7 +86,7 @@ const Homepage = () => {
       ) : (
         <div className="py-5">
           <h1 className="mb-4">
-            🎉 {userGender === "femmina" ? "Benvenuta" : "Benvenuto"} {userName}!
+            🎉 {userGender === "femmina" ? "ciaa" : "ciao"} {userName}!
           </h1>
           <BlogPostsList />
         </div>
