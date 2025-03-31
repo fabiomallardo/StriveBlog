@@ -64,7 +64,7 @@ router.put("/:id", uploader.single("avatar"), async (req, res) => {
   try {
     const { nome, cognome, email, bio } = req.body;
     const avatarFile = req.file;
-    const avatarUrl = avatarFile ? `http://localhost:3001/uploads/${avatarFile.filename}` : undefined;
+    const avatarUrl = avatarFile ? `${process.env.REACT_APP_API_URL}/uploads/${avatarFile.filename}` : undefined;
 
     const updateData = {};
     if (nome) updateData.nome = nome;
