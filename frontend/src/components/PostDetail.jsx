@@ -35,16 +35,15 @@ const PostDetail = () => {
     fetchPost();
   }, [id]);
 
+  
   const handleAddComment = async (e) => {
     e.preventDefault();
   
-    // Assicurati che il commento non sia vuoto
     if (!newComment.trim()) return;
   
-    // Aggiungi il controllo dei dati
     const author = userNome && userCognome ? `${userNome} ${userCognome}` : "Anonimo";
-    
-    const commentData = { author : fullName, text: newComment, postId : id };
+    const commentData = { author, text: newComment, postId: id };
+  
     console.log("Dati che invio:", commentData);
   
     try {
@@ -56,7 +55,7 @@ const PostDetail = () => {
   
       if (!res.ok) {
         const errorData = await res.json();
-        console.error("Errore risposta API:", errorData); // Mostra i dettagli dell'errore
+        console.error("Errore risposta API:", errorData);  // Log della risposta di errore
         throw new Error("Errore invio commento");
       }
   
@@ -64,7 +63,6 @@ const PostDetail = () => {
       setPost((prevPost) => ({ ...prevPost, comments: data.comments }));
       setNewComment(""); // Reset del campo del commento
     } catch (err) {
-      console.error("Errore nel recupero dei commenti:", err);
       setError("Errore nel recupero dei commenti.");
     }
   };
