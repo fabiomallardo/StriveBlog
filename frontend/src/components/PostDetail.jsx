@@ -45,9 +45,13 @@ const PostDetail = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ author: fullName, text: newComment }),
+        
       });
 
-      if (!res.ok) throw new Error("Errore invio commento");
+      if (!res.ok) {
+        console.error("Errore risposta API:", errorData); // Aggiungi questa riga
+       throw new Error("Errore invio commento");
+      }
 
       const data = await res.json();
       setPost((prevPost) => ({ ...prevPost, comments: data.comments }));
