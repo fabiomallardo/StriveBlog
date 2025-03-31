@@ -8,6 +8,55 @@ const PostDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const fullName = userNome && userCognome ? `${userNome} ${userCognome}` : "Anonimo";
+
+  const handleAddComment = async (e, postId) => {
+    const text = newComments[postId];
+    if (!text?.trim()) return;
+
+    try {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/blogPosts/${postId}/comments`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ author: fullName, email: userEmail, text }),
+      });
+
+      if (!res.ok) throw new Error("Errore invio commento");
+
+      const data = await res.json();
+      setPosts((prev) =>
+        prev.map((post) =>
+          post._id === postId ? { ...post, comments: data.comments } : post
+        )
+      );
+      setNewComments({ ...newComments, [postId]: "" });
+    } catch (err) {
+      console.error("❌ Errore commento:", err);
+    }
+  };
+
+  const handleDeleteComment = async (postId, commentId) => {
+    try {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/blogPosts/${postId}/comments/${commentId}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: userEmail }),
+      });
+
+      if (!res.ok) throw new Error("Errore eliminazione");
+
+      const data = await res.json();
+      setPosts((prev) =>
+        prev.map((post) =>
+          post._id === postId ? { ...post, comments: data.comments } : post
+        )
+      );
+    } catch (err) {
+      console.error("❌ Errore eliminazione commento:", err);
+    }
+  };    e.preventDefault();
+
+
   // Recupera il post completo
   useEffect(() => {
     const fetchPost = async () => {
