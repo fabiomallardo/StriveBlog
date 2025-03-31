@@ -1,27 +1,17 @@
-/* App.css */
-
-body, html, #root {
+/* Aggiungi questo al tuo file CSS globale */
+html, body {
+  height: 100%; /* Assicurati che la pagina occupi l'intera altezza */
   margin: 0;
-  padding: 0;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
 }
 
-.app-wrapper {
+body {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-}
-
-main {
-  flex: 1; /* Fa sì che main occupi tutto lo spazio disponibile */
+  justify-content: space-between; /* Assicura che il footer vada in fondo */
 }
 
 footer {
-  background-color: #343a40; /* Puoi personalizzarlo come desideri */
-  color: #fff;
-  padding: 10px 0;
-  text-align: center;
+  margin-top: auto; /* Spinge il footer verso il basso */
 }
