@@ -9,6 +9,7 @@ const Homepage = () => {
   const [userName, setUserName] = useState(localStorage.getItem("userNome") || "");
   const [userGender, setUserGender] = useState(localStorage.getItem("userGender") || "");
 
+  // Aggiorna lo stato quando i dati dell'utente cambiano
   useEffect(() => {
     setIsAuthenticated(!!localStorage.getItem("token"));
     setUserName(localStorage.getItem("userNome") || "");
@@ -38,11 +39,13 @@ const Homepage = () => {
 
   return (
     <div
-      className={`${!isAuthenticated ? "vh-100 vw-100" : ""}`} // Applicare vh-100 solo se non autenticato
+      className={`${
+        !isAuthenticated ? "vh-100 vw-100" : ""  // Aggiungi la classe solo se non è loggato
+      }`}
       style={{
         margin: 0,
         padding: 0,
-        backgroundImage: !isAuthenticated ? `url(${sfondo})` : "none", // Applica l'immagine solo se non autenticato
+        backgroundImage: !isAuthenticated ? `url(${sfondo})` : "none", // Sfondo solo se non è loggato
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
