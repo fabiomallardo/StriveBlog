@@ -49,7 +49,7 @@ const App = () => {
               path="/admin"
               element={isAuthenticated && isAdmin ? <AdminDashboard /> : <Navigate to="/" />}
             />
-            <Route path="/post/:id" element={<PostDetail />} />
+            <Route path="/blogPosts/:id" element={<PostDetail />} />
           </Routes>
         </main>
         <Footer />

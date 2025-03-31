@@ -140,7 +140,7 @@ const BlogPostsList = () => {
               <Card.Footer className="text-muted small d-flex justify-content-between align-items-center">
                 <span>{post.author}</span>
                 {/* Bottone per leggere l'articolo per intero */}
-                <Button as={Link} to={`/post/${post._id}`} variant="outline-primary" size="sm">
+                <Button as={Link} to={`/blogPosts/${post._id}`} variant="outline-primary" size="sm">
                   Leggi Articolo
                 </Button>
               </Card.Footer>
