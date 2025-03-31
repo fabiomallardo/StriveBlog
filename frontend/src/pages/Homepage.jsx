@@ -38,7 +38,6 @@ const Homepage = () => {
 
   return (
     <div
-      className="vh-100 vw-100"
       style={{
         margin: 0,
         padding: 0,
