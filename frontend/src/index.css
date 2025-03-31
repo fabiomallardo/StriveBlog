@@ -17,3 +17,15 @@ footer {
 }
 
 
+
+.card-comments {
+  max-height: 200px;  /* Imposta un'altezza massima per la sezione commenti */
+  overflow-y: auto;    /* Aggiungi lo scrolling verticale se i commenti sono troppi */
+  padding: 10px;       /* Aggiungi un po' di padding per distanziare i commenti dai bordi */
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
