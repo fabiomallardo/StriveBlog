@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar.jsx";
 import Homepage from "./pages/Homepage.jsx";
@@ -27,10 +27,11 @@ function App() {
 
   return (
     <Router>
-      <div className="app-wrapper d-flex flex-column min-vh-100">
+      <div className="app-wrapper">
         <Navbar />
 
-        <main className="flex-grow-1">
+        {/* Aggiungi vh-100 solo se l'utente non è autenticato */}
+        <main className={isAuthenticated ? "" : "vh-100"}>
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route
