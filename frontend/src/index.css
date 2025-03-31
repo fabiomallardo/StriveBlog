@@ -15,3 +15,8 @@ body {
 footer {
   margin-top: auto; /* Spinge il footer verso il basso */
 }
+
+
+.vh-100 {
+  height: auto !important;
+}

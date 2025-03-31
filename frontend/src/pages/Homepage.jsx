@@ -84,7 +84,7 @@ const Homepage = () => {
           )}
         </div>
       ) : (
-        <div className="container py-5">
+        <div className="py-5">
           <h1 className="mb-4">
             🎉 {userGender === "femmina" ? "Benvenuta" : "Benvenuto"} {userName}!
           </h1>
