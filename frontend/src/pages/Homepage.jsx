@@ -38,7 +38,6 @@ const Homepage = () => {
 
   return (
     <div
-      className="homepage-wrapper"
       style={{
         margin: 0,
         padding: 0,
@@ -47,6 +46,9 @@ const Homepage = () => {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         minHeight: !isAuthenticated ? "100vh" : "auto", // Altezza 100vh solo quando non loggato
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
       }}
     >
       {!isAuthenticated ? (
@@ -88,6 +90,14 @@ const Homepage = () => {
           <BlogPostsList />
         </div>
       )}
+      <footer className="footer bg-dark text-white mt-auto">
+        <div className="container text-center">
+          <p>&copy; 2025 Strive Blog. Tutti i diritti riservati.</p>
+          <div>
+            <button onClick={handleLogout} className="btn btn-light">Logout</button>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
