@@ -49,7 +49,6 @@ const Homepage = () => {
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        overflow: "hidden",
       }}
     >
       {!isAuthenticated ? (
