@@ -47,7 +47,7 @@ const PostDetail = () => {
 
   // Aggiungi il controllo dei dati
   const author = userNome && userCognome ? `${userNome} ${userCognome}` : "Anonimo";
-  const commentData = { author, text: newComment, email: userEmail, postId: id };
+  const commentData = { author, text: newComment, email: userEmail, postId: id, createdAt: new Date().toISOString() };
 
   console.log("Dati che invio:", commentData);
 
@@ -139,7 +139,7 @@ const PostDetail = () => {
                       size="sm"
                       onClick={() => handleDeleteComment(comment._id)} // Passa commentId
                     >
-                      🗑
+                                            🗑
                     </Button>
                   )}
                 </li>
