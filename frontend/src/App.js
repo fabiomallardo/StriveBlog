@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar.jsx";
 import Homepage from "./pages/Homepage.jsx";
@@ -11,7 +11,8 @@ import PostDetail from "./components/PostDetail.jsx";
 import { jwtDecode } from "jwt-decode";
 import "font-awesome/css/font-awesome.min.css";
 
-function App() {
+// Layout principale con Flexbox per spingere il footer giù
+const App = () => {
   const token = localStorage.getItem("token");
   const isAuthenticated = !!token;
 
@@ -27,11 +28,9 @@ function App() {
 
   return (
     <Router>
-      <div className="app-wrapper">
+      <div className="app-wrapper" style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
         <Navbar />
-
-        {/* Aggiungi vh-100 solo se l'utente non è autenticato */}
-        <main className={isAuthenticated ? "" : "vh-100"}>
+        <main style={{ flex: 1 }}>
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route
@@ -53,11 +52,10 @@ function App() {
             <Route path="/post/:id" element={<PostDetail />} />
           </Routes>
         </main>
-
         <Footer />
       </div>
     </Router>
   );
-}
+};
 
 export default App;
