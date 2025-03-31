@@ -86,7 +86,7 @@ const Homepage = () => {
       ) : (
         <div className="py-5">
           <h1 className="mb-4">
-            🎉 {userGender === "femmina" ? "ciaa" : "ciao"} {userName}!
+            🎉 {userGender === "femmina" ? "Benvenuta" : "Benvenuto"} {userName}!
           </h1>
           <BlogPostsList />
         </div>
