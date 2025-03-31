@@ -18,17 +18,27 @@ app.use(express.json());
 
 // Usa Multer + Cloudinary per caricare le immagini
 app.post("/upload", uploader.single("avatar"), (req, res) => {
+  // Verifica che il file sia stato caricato
   if (!req.file) {
     return res.status(400).json({ error: "No file uploaded" });
   }
 
-  // L'URL HTTPS dell'immagine caricata su Cloudinary
+  // Controlla che il file sia effettivamente un'immagine
+  const allowedFormats = ["image/jpeg", "image/png", "image/gif"];
+  if (!allowedFormats.includes(req.file.mimetype)) {
+    return res.status(400).json({ error: "Invalid file type. Only JPEG, PNG, and GIF are allowed." });
+  }
+
+  // L'URL dell'immagine su Cloudinary
   const imageUrl = req.file.path; // Questo è l'URL HTTPS di Cloudinary
+
+  // Risposta di successo
   res.status(200).json({
     message: "Immagine caricata con successo",
-    url: imageUrl, // Restituisci l'URL dell'immagine
+    url: imageUrl, // Restituisce l'URL dell'immagine
   });
 });
+
 
 // Rotte
 app.use("/authors", authorsRouter); // Solo una rotta per gli autori

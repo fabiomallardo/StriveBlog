@@ -94,11 +94,16 @@ router.delete("/:id", isAuth, isAdmin, async (req, res) => {
 });
 
 
-// ✅ PATCH avatar autore (opzionale)
 router.patch("/:id/avatar", uploader.single("avatar"), async (req, res) => {
-  const avatarURL = req.file.path;
+  if (!req.file) {
+    return res.status(400).send("Nessun file caricato");
+  }
+
+  const avatarURL = req.file.path; // Questo è l'URL dell'immagine su Cloudinary
   const author = await Author.findByIdAndUpdate(req.params.id, { avatar: avatarURL }, { new: true });
+  
   if (!author) return res.status(404).send("Autore non trovato");
+
   res.json(author);
 });
 
