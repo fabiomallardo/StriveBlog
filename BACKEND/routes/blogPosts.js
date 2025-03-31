@@ -1,7 +1,7 @@
 import express from "express"
 import BlogPostModel from "../models/BlogPost.js"
 import Author from "../models/Author.js"
-import uploader from"../middlewares/uploader.js"
+/* import uploader from"../middlewares/uploader.js" */
 import isAuth from "../middlewares/isAuth.js"
 import isAdmin from "../middlewares/isAdmin.js"
 import BlogPost from "../models/BlogPost.js";

@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import Author from "../models/Author.js";
 import isAuth from "../middlewares/isAuth.js";
 import isAdmin from "../middlewares/isAdmin.js";
-import uploader from "../middlewares/uploader.js";
+/* import uploader from "../middlewares/uploader.js"; */
 import sendWelcomeEmail from "../utils/sendEmail.js";
 
 const router = express.Router();
@@ -59,19 +59,21 @@ router.post("/", async (req, res) => {
   }
 });
 
-// ✅ PUT modifica autore (bio + avatar)
+// PUT modifica autore (bio + avatar)
 router.put("/:id", uploader.single("avatar"), async (req, res) => {
   try {
     const { nome, cognome, email, bio } = req.body;
-    const avatarFile = req.file;
-    const avatarUrl = avatarFile ? `${process.env.REACT_APP_API_URL}/uploads/${avatarFile.filename}` : undefined;
-
     const updateData = {};
+
     if (nome) updateData.nome = nome;
     if (cognome) updateData.cognome = cognome;
     if (email) updateData.email = email;
     if (bio) updateData.bio = bio;
-    if (avatarUrl) updateData.avatar = avatarUrl;
+
+    // Se è stato caricato un file, utilizza l'URL di Cloudinary
+    if (req.file) {
+      updateData.avatar = req.file.path;
+    }
 
     const updatedAuthor = await Author.findByIdAndUpdate(req.params.id, updateData, { new: true });
     if (!updatedAuthor) return res.status(404).send("Autore non trovato");
@@ -81,6 +83,7 @@ router.put("/:id", uploader.single("avatar"), async (req, res) => {
     res.status(500).json({ error: "Errore interno del server" });
   }
 });
+
 
 // DELETE /authors/:id
 router.delete("/:id", isAuth, isAdmin, async (req, res) => {
