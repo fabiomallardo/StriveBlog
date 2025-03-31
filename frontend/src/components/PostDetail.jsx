@@ -35,38 +35,44 @@ const PostDetail = () => {
     fetchPost();
   }, [id]);
 
-  
-  const handleAddComment = async (e) => {
-    e.preventDefault();
-  
-    if (!newComment.trim()) return;
-  
-    const author = userNome && userCognome ? `${userNome} ${userCognome}` : "Anonimo";
-    const commentData = { author, text: newComment, postId: id };
-  
-    console.log("Dati che invio:", commentData);
-  
-    try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/blogPosts/${id}/comments`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(commentData),
-      });
-  
-      if (!res.ok) {
-        const errorData = await res.json();
-        console.error("Errore risposta API:", errorData);  // Log della risposta di errore
-        throw new Error("Errore invio commento");
-      }
-  
-      const data = await res.json();
-      setPost((prevPost) => ({ ...prevPost, comments: data.comments }));
-      setNewComment(""); // Reset del campo del commento
-    } catch (err) {
-      setError("Errore nel recupero dei commenti.");
+
+ const handleAddComment = async (e) => {
+  e.preventDefault();
+
+  // Assicurati che il commento non sia vuoto
+  if (!newComment.trim()) return;
+
+  // Recupera l'email dell'utente
+  const userEmail = localStorage.getItem("userEmail");
+
+  // Aggiungi il controllo dei dati
+  const author = userNome && userCognome ? `${userNome} ${userCognome}` : "Anonimo";
+  const commentData = { author, text: newComment, email: userEmail, postId: id };
+
+  console.log("Dati che invio:", commentData);
+
+  try {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/blogPosts/${id}/comments`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(commentData),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error("Errore risposta API:", errorData);  // Mostra i dettagli dell'errore
+      throw new Error("Errore invio commento");
     }
-  };
-  
+
+    const data = await res.json();
+    setPost((prevPost) => ({ ...prevPost, comments: data.comments }));
+    setNewComment(""); // Reset del campo del commento
+  } catch (err) {
+    console.error("Errore nel recupero dei commenti:", err);
+    setError("Errore nel recupero dei commenti.");
+  }
+};
+
   
   
   // Funzione per eliminare un commento
