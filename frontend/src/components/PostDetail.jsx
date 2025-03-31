@@ -38,22 +38,27 @@ const PostDetail = () => {
   // Funzione per inviare il commento
   const handleAddComment = async (e) => {
     e.preventDefault();
+    
+    // Assicurati che il commento non sia vuoto
     if (!newComment.trim()) return;
-
+  
+    // Aggiungi il controllo dei dati
+    const author = userNome && userCognome ? `${userNome} ${userCognome}` : "Anonimo";
+    console.log("Dati che invio:", { author, text: newComment });
+  
     try {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/blogPosts/${id}/comments`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ author: fullName, text: newComment }),
-        
+        body: JSON.stringify({ author, text: newComment }),
       });
-
+  
       if (!res.ok) {
         const errorData = await res.json();
-        console.error("Errore risposta API:", errorData); // Aggiungi questa riga
-       throw new Error("Errore invio commento");
+        console.error("Errore risposta API:", errorData);  // Mostra i dettagli dell'errore
+        throw new Error("Errore invio commento");
       }
-
+  
       const data = await res.json();
       setPost((prevPost) => ({ ...prevPost, comments: data.comments }));
       setNewComment(""); // Reset del campo del commento
@@ -61,7 +66,7 @@ const PostDetail = () => {
       setError("Errore nel recupero dei commenti.");
     }
   };
-
+  
   // Funzione per eliminare un commento
   const handleDeleteComment = async (commentId) => {
     try {
